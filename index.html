@@ -5,17 +5,35 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <title>Blackjack</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
-  <header class="py-4">
-    <h1 class="text-4xl text-center font-bold">
+  <header class="py-4 text-center absolute inset-x-0">
+    <h1 class="text-4xl font-bold">
       BLACKJACK
     </h1>
   </header>
+  <section class="flex h-screen flex-col">
+    <div class="flex flex-1 items-center justify-center">
+      <div>
+        <h3>PC - <span>0</span></h3>
+        <div id="pc-cards">
+          <img src="assets/img/cards/10C.png" class="card">
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-1 items-center justify-center bg-slate-800">
+      <div>
+        <h3>Player - <span>0</span></h3>
+        <div id="player-cards" class="flex">
+          <img src="assets/img/cards/10C.png" class="card">
+        </div>
+      </div>
+    </div>
+  </section>
   <footer class="flex justify-between absolute inset-x-0 bottom-0 p-5 md:max-w-screen-sm md:m-auto">
     <div>
       <button
