@@ -19,3 +19,13 @@ const createDeck = () => {
 }
 
 createDeck();
+
+const hitCard = () => {
+    if( deck.length === 0 ) {
+        throw 'Empty deck';
+    }
+    const card = deck.pop();
+    return card;
+}
+
+hitCard();
