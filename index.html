@@ -20,7 +20,7 @@
     <!-- PC -->
     <div class="flex flex-1 items-center justify-center">
       <div>
-        <h3>PC - <span>0</span></h3>
+        <h3>PC - <strong>0</strong></h3>
         <div id="pc-cards" class="flex">
           <img src="assets/img/cards/10C.png" class="card">
         </div>
@@ -29,7 +29,7 @@
     <!-- Player -->
     <div class="flex flex-1 items-center justify-center">
       <div>
-        <h3>Player - <span>0</span></h3>
+        <h3>Player - <strong>0</strong></h3>
         <div id="player-cards" class="flex">
           <img src="assets/img/cards/10C.png" class="card">
         </div>
@@ -39,16 +39,19 @@
   <footer class="flex justify-between absolute inset-x-0 bottom-0 p-5 md:max-w-screen-sm md:m-auto">
     <div>
       <button
+        id="newGameButton"
         class="px-6 py-2 font-semibold rounded-full bg-green-500 hover:bg-green-600 focus:ring focus:ring-green-300 shadow">
         New Game
       </button>
     </div>
     <div class="space-x-1">
       <button
+        id="hitButton"
         class="px-6 py-2 font-semibold rounded-full bg-yellow-500 hover:bg-yellow-600 focus:ring focus:ring-yellow-300 shadow">
         Hit
       </button>
       <button
+        id="standButton"
         class="px-6 py-2 font-semibold rounded-full bg-red-500 hover:bg-red-600 focus:ring focus:ring-red-300 shadow">
         Stand
       </button>
