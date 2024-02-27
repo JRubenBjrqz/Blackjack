@@ -7,6 +7,7 @@ let pointsPlayer = 0,
 
 const hitButton = document.querySelector( '#hitButton' );
 
+const displayCardsPlayer = document.querySelector('#playerCards');
 const displayPoints = document.querySelectorAll('strong');
 
 const createDeck = () => {
@@ -58,7 +59,21 @@ hitButton.addEventListener('click', () => {
     pointsPlayer = pointsPlayer + cardValue( card );
     displayPoints[1].innerText = pointsPlayer;
 
-    console.log( pointsPlayer );
+    const imgCard = document.createElement( 'img' );
+    
+    imgCard.src = `assets/img/cards/${ card }.png`;
+    imgCard.classList.add( 'card' );
+    displayCardsPlayer.append( imgCard );
+
+    if( pointsPlayer > 21) {
+        console.warn( 'Loser' );
+        hitButton.disabled = true;
+        hitButton.classList.add( 'disabled:opacity-75' );
+    } else if ( pointsPlayer === 21 ) {
+        console.warn( 'Winner' );
+        hitButton.disabled = true;
+        hitButton.classList.add( 'disabled:opacity-75' );
+    }
 });
 
 
