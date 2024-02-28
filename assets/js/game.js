@@ -7,6 +7,7 @@ let playerPoints = 0,
 
 const hitButton = document.querySelector('#hitButton');
 const standButton = document.querySelector('#standButton');
+const newGameButton = document.querySelector('#newGameButton');
 
 const displayPlayerCards = document.querySelector('#playerCards');
 const displayPCCards = document.querySelector('#pcCards');
@@ -26,6 +27,7 @@ const createDeck = () => {
         }
     }
     deck = _.shuffle(deck);
+    console.log(deck);
     return deck;
 }
 
@@ -75,6 +77,21 @@ const pcTurn = ( minimumPoints ) => {
         }
 
     } while( ( pcPoints < minimumPoints && minimumPoints <= 21 ) );
+
+    setTimeout(() => {
+
+        if( pcPoints === minimumPoints ) {
+            alert('Tie');
+        } else if ( minimumPoints > 21 ) {
+            alert('PC Win');
+        } else if( pcPoints > 21 ){
+            alert('Player Win');
+        } else {
+            alert('PC Win');
+        }
+
+    }, 250 );
+
 }
 
 // Events
@@ -92,7 +109,7 @@ hitButton.addEventListener('click', () => {
     displayPlayerCards.append(imgCard);
 
     if (playerPoints > 21) {
-        console.warn('Loser');
+        console.log('Loser');
         hitButton.disabled = true;
         hitButton.classList.add('disabled:opacity-75');
         standButton.disabled = true;
@@ -100,7 +117,7 @@ hitButton.addEventListener('click', () => {
         pcTurn( playerPoints );
 
     } else if (playerPoints === 21) {
-        console.warn('Winner');
+        console.log('Winner');
         hitButton.disabled = true;
         hitButton.classList.add('disabled:opacity-75');
         standButton.disabled = true;
@@ -118,6 +135,26 @@ standButton.addEventListener('click', () => {
     standButton.classList.add('disabled:opacity-75');
 
     pcTurn( playerPoints );
+
+});
+
+newGameButton.addEventListener('click', () => {
+
+    deck = []
+    createDeck();
+    
+    playerPoints = 0;
+    pcPoints = 0;
+
+    displayPoints[0].innerText = 0;
+    displayPoints[1].innerText = 0;
+
+    displayPCCards.innerHTML = '';
+    displayPlayerCards.innerHTML = '';
+    hitButton.disabled = false;
+    hitButton.classList.remove('disabled:opacity-75');
+    standButton.disabled = false;
+    standButton.classList.remove('disabled:opacity-75');
 
 });
 
