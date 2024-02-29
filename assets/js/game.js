@@ -12,8 +12,7 @@
           standButton = document.querySelector('#standButton'),
           newGameButton = document.querySelector('#newGameButton');
 
-    const displayPlayerCards = document.querySelector('#playerCards'),
-          displayPCCards = document.querySelector('#pcCards'),
+    const cardsPlayersDiv = document.querySelectorAll('.cardsDiv'),
           displayPoints = document.querySelectorAll('strong');
 
     const startGame = ( numberPlayers = 2 ) => {
@@ -59,23 +58,30 @@
             : value * 1;
     }
 
-    const accumulatePoints = () => {
+    const accumulatePoints = ( turn, card ) => {
 
+        playersPoints[turn] = playersPoints[turn] + cardValue(card);
+        playersPoints[turn].innerText = playersPoints[turn];
+
+        return playersPoints[turn];
+    }
+
+    const createCard = ( turn, card ) => {
+        const imgCard = document.createElement('img');
+
+        imgCard.src = `assets/img/cards/${card}.png`;
+        imgCard.classList.add('card');
+        cardsPlayersDiv[turn].append( imgCard );
+        displayPCCards.append(imgCard);
     }
 
     const pcTurn = ( minimumPoints ) => {
+        let pcPoints = 0;
         
         do {
             const card = hitCard();
-
-            pcPoints = pcPoints + cardValue(card);
-            displayPoints[0].innerText = pcPoints;
-
-            const imgCard = document.createElement('img');
-
-            imgCard.src = `assets/img/cards/${card}.png`;
-            imgCard.classList.add('card');
-            displayPCCards.append(imgCard);
+            pcPoints = accumulatePoints( card, playersPoints.length - 1 );
+            createCard( card, playersPoints.length - 1 );
 
             if( minimumPoints > 21 ) {
                 break;
@@ -96,7 +102,6 @@
             }
 
         }, 250 );
-
     }
 
     // Events
@@ -104,14 +109,8 @@
     hitButton.addEventListener('click', () => {
         const card = hitCard();
 
-        playerPoints = playerPoints + cardValue(card);
-        displayPoints[1].innerText = playerPoints;
-
-        const imgCard = document.createElement('img');
-
-        imgCard.src = `assets/img/cards/${card}.png`;
-        imgCard.classList.add('card');
-        displayPlayerCards.append(imgCard);
+        accumulatePoints( card, 0 );
+        createCard( card, playersPoints.length - 1 );
 
         if (playerPoints > 21) {
             console.log('Loser');
@@ -145,21 +144,21 @@
 
     newGameButton.addEventListener('click', () => {
 
-        deck = []
-        createDeck();
+        // deck = []
+        // createDeck();
         
-        playerPoints = 0;
-        pcPoints = 0;
+        // playerPoints = 0;
+        // pcPoints = 0;
 
-        displayPoints[0].innerText = 0;
-        displayPoints[1].innerText = 0;
+        // displayPoints[0].innerText = 0;
+        // displayPoints[1].innerText = 0;
 
-        displayPCCards.innerHTML = '';
-        displayPlayerCards.innerHTML = '';
-        hitButton.disabled = false;
-        hitButton.classList.remove('disabled:opacity-75');
-        standButton.disabled = false;
-        standButton.classList.remove('disabled:opacity-75');
+        // displayPCCards.innerHTML = '';
+        // displayPlayerCards.innerHTML = '';
+        // hitButton.disabled = false;
+        // hitButton.classList.remove('disabled:opacity-75');
+        // standButton.disabled = false;
+        // standButton.classList.remove('disabled:opacity-75');
 
     });
 
