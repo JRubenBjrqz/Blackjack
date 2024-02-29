@@ -3,64 +3,65 @@
     'use strict'
 
     let deck = [];
-    const suits = ['C', 'D', 'H', 'S'];
-    const courtCards = ['A', 'J', 'Q', 'K'];
+    const suits = ['C', 'D', 'H', 'S'],
+          courtCards = ['A', 'J', 'Q', 'K'];
 
-    let playerPoints = 0,
-        pcPoints = 0;
+    let playersPoints = [];
 
-    const hitButton = document.querySelector('#hitButton');
-    const standButton = document.querySelector('#standButton');
-    const newGameButton = document.querySelector('#newGameButton');
+    const hitButton = document.querySelector('#hitButton'),
+          standButton = document.querySelector('#standButton'),
+          newGameButton = document.querySelector('#newGameButton');
 
-    const displayPlayerCards = document.querySelector('#playerCards');
-    const displayPCCards = document.querySelector('#pcCards');
+    const displayPlayerCards = document.querySelector('#playerCards'),
+          displayPCCards = document.querySelector('#pcCards'),
+          displayPoints = document.querySelectorAll('strong');
 
-    const displayPoints = document.querySelectorAll('strong');
+    const startGame = ( numberPlayers = 2 ) => {
+        deck = createDeck();
+
+        for (let i = 0; i < numberPlayers; i++) {
+            playersPoints.push(0);
+        }
+    }
 
     const createDeck = () => {
-        for (let i = 2; i <= 10; i++) {
-            for (let suit of suits) {
-                deck.push(i + suit);
+        deck = [];
+
+        for ( let i = 2; i <= 10; i++ ) {
+            for ( let suit of suits ) {
+                deck.push( i + suit );
             }
         }
 
-        for (let suit of suits) {
-            for (let courtCard of courtCards) {
-                deck.push(courtCard + suit);
+        for ( let suit of suits ) {
+            for ( let courtCard of courtCards ) {
+                deck.push( courtCard + suit );
             }
         }
-        deck = _.shuffle(deck);
-        console.log(deck);
-        return deck;
+
+        return _.shuffle( deck );
     }
-
-    createDeck();
 
     const hitCard = () => {
-        if (deck.length === 0) {
+        
+        if ( deck.length === 0 ) {
             throw 'Empty deck';
         }
-        const card = deck.pop();
-        return card;
+        
+        return card = deck.pop();
     }
 
-    const cardValue = (card) => {
-        const value = card.substring(0, card.length - 1);
+    const cardValue = ( card ) => {
+        const value = card.substring( 0, card.length - 1 );
 
-        return (isNaN(value)) ?
-            (value === 'A') ? 11 : 10
+        return ( isNaN(value) ) ?
+            ( value === 'A' ) ? 11 : 10
             : value * 1;
-        // points = 0;
-
-        // if( isNaN( value ) ){
-        //     points = ( value === 'A' ) ? 11 : 10;
-        // } else {
-        //     points = value * 1;
-        // }
     }
 
-    // PC Turn
+    const accumulatePoints = () => {
+
+    }
 
     const pcTurn = ( minimumPoints ) => {
         
