@@ -112,7 +112,7 @@ const gameModule =  (() => {
             pcPoints = accumulatePoints( card, 0 );
             createCard( card, 0 );
 
-        } while( (pcPoints < minimumPoints) && (minimumPoints <= 21) );
+        } while( pcPoints < minimumPoints && minimumPoints <= 21 );
 
         winner();
 
