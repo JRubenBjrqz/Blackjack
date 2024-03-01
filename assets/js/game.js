@@ -1,5 +1,4 @@
-
-(() => {
+const gameModule =  (() => {
     'use strict'
 
     let deck = [];
@@ -17,10 +16,21 @@
 
     const startGame = ( numberPlayers = 2 ) => {
         deck = createDeck();
+        playersPoints = [];
 
         for (let i = 0; i < numberPlayers; i++) {
             playersPoints.push(0);
         }
+
+        displayPoints.forEach( element => element.innerHTML = 0 );
+
+        cardsPlayersDiv.forEach( element => element.innerHTML = '' );
+
+        hitButton.disabled = false;
+        hitButton.classList.add('disabled:opacity-75');
+        standButton.disabled = false;
+        standButton.classList.add('disabled:opacity-75');
+
     }
 
     const createDeck = () => {
@@ -47,7 +57,7 @@
             throw 'Empty deck';
         }
         
-        return card = deck.pop();
+        return deck.pop();
     }
 
     const cardValue = ( card ) => {
@@ -58,36 +68,25 @@
             : value * 1;
     }
 
-    const accumulatePoints = ( turn, card ) => {
+    const accumulatePoints = ( card, turn ) => {
 
-        playersPoints[turn] = playersPoints[turn] + cardValue(card);
-        playersPoints[turn].innerText = playersPoints[turn];
+        playersPoints[turn] = playersPoints[turn] + cardValue( card );
+        displayPoints[turn].innerText = playersPoints[turn];
 
         return playersPoints[turn];
     }
 
-    const createCard = ( turn, card ) => {
+    const createCard = ( card, turn ) => {
         const imgCard = document.createElement('img');
 
         imgCard.src = `assets/img/cards/${card}.png`;
         imgCard.classList.add('card');
         cardsPlayersDiv[turn].append( imgCard );
-        displayPCCards.append(imgCard);
     }
 
-    const pcTurn = ( minimumPoints ) => {
-        let pcPoints = 0;
-        
-        do {
-            const card = hitCard();
-            pcPoints = accumulatePoints( card, playersPoints.length - 1 );
-            createCard( card, playersPoints.length - 1 );
+    const winner = () => {
 
-            if( minimumPoints > 21 ) {
-                break;
-            }
-
-        } while( ( pcPoints < minimumPoints && minimumPoints <= 21 ) );
+        const [ pcPoints, minimumPoints ] = playersPoints;
 
         setTimeout(() => {
 
@@ -102,6 +101,21 @@
             }
 
         }, 250 );
+
+    }
+
+    const pcTurn = ( minimumPoints ) => {
+        let pcPoints = 0;
+        
+        do {
+            const card = hitCard();
+            pcPoints = accumulatePoints( card, 0 );
+            createCard( card, 0 );
+
+        } while( (pcPoints < minimumPoints) && (minimumPoints <= 21) );
+
+        winner();
+
     }
 
     // Events
@@ -109,10 +123,10 @@
     hitButton.addEventListener('click', () => {
         const card = hitCard();
 
-        accumulatePoints( card, 0 );
+        const playerPoints = accumulatePoints( card, playersPoints.length - 1 );
         createCard( card, playersPoints.length - 1 );
 
-        if (playerPoints > 21) {
+        if ( playerPoints > 21 ) {
             console.log('Loser');
             hitButton.disabled = true;
             hitButton.classList.add('disabled:opacity-75');
@@ -120,7 +134,7 @@
             standButton.classList.add('disabled:opacity-75');
             pcTurn( playerPoints );
 
-        } else if (playerPoints === 21) {
+        } else if ( playerPoints === 21 ) {
             console.log('Winner');
             hitButton.disabled = true;
             hitButton.classList.add('disabled:opacity-75');
@@ -138,28 +152,18 @@
         standButton.disabled = true;
         standButton.classList.add('disabled:opacity-75');
 
-        pcTurn( playerPoints );
+        pcTurn( playersPoints[0] );
 
     });
 
     newGameButton.addEventListener('click', () => {
 
-        // deck = []
-        // createDeck();
-        
-        // playerPoints = 0;
-        // pcPoints = 0;
-
-        // displayPoints[0].innerText = 0;
-        // displayPoints[1].innerText = 0;
-
-        // displayPCCards.innerHTML = '';
-        // displayPlayerCards.innerHTML = '';
-        // hitButton.disabled = false;
-        // hitButton.classList.remove('disabled:opacity-75');
-        // standButton.disabled = false;
-        // standButton.classList.remove('disabled:opacity-75');
+        startGame();
 
     });
+
+    return {
+        newGame: startGame
+    };
 
 })();

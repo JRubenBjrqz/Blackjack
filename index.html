@@ -38,27 +38,29 @@
   </section>
   <footer class="flex justify-between absolute inset-x-0 bottom-0 p-5 md:max-w-screen-sm md:m-auto">
     <div>
-      <button
-        id="newGameButton"
+      <button id="newGameButton"
         class="px-6 py-2 font-semibold rounded-full bg-green-500 hover:bg-green-600 focus:ring focus:ring-green-300 shadow">
         New Game
       </button>
     </div>
     <div class="space-x-1">
-      <button
-        id="hitButton"
-        class="px-6 py-2 font-semibold rounded-full bg-yellow-500 hover:bg-yellow-600 focus:ring focus:ring-yellow-300 shadow">
+      <button id="hitButton"
+        class="px-6 py-2 font-semibold rounded-full bg-yellow-500 hover:bg-yellow-600 focus:ring focus:ring-yellow-300 shadow"
+        disabled="disabled">
         Hit
       </button>
-      <button
-        id="standButton"
-        class="px-6 py-2 font-semibold rounded-full bg-red-500 hover:bg-red-600 focus:ring focus:ring-red-300 shadow">
+      <button id="standButton"
+        class="px-6 py-2 font-semibold rounded-full bg-red-500 hover:bg-red-600 focus:ring focus:ring-red-300 shadow"
+        disabled="disabled">
         Stand
       </button>
     </div>
   </footer>
   <script src="assets/js/underscore-min.js"></script>
   <script src="assets/js/game.js"></script>
+  <script>
+    gameModule.newGame();
+  </script>
 </body>
 
 </html>
